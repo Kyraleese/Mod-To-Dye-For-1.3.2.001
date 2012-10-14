@@ -1,0 +1,19 @@
+[
+{
+"modid": "ModToDyeFor",
+"name": "Mod To Dye For",
+"description": "Because you should be able to dye more than wool.",
+"version": "1.3.2.001",
+"credits": "Created by Kyraleese",
+"logoFile": "",
+"mcversion": "",
+"url": "http://www.github.com/Kyraleese/",
+"updateUrl": "",
+"authors": [ "Kyraleese" ],
+"parent":"",
+"screenshots": [],
+"dependencies": [
+"mod_MinecraftForge"
+]
+}
+]
