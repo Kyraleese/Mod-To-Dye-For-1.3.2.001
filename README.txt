@@ -9,4 +9,5 @@ It should go without saying:  I am not responsible for any damage done to your m
 
 I plan to have a lot more colorable items in the future; for the moment treat this as an early beta (I haven't even gotten a config file together yet and am using 500-503 for block ids).
 
-For the time being, just zip this all up and drop the zip in the mods folder and you should be good to go.
+Just pop the zip file in your mods folder after installing Forge and you should be ready to go!
+

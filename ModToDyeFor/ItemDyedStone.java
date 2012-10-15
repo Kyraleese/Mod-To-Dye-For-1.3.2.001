@@ -9,7 +9,6 @@ public class ItemDyedStone extends ItemDyed {
 	public ItemDyedStone(int i) {
 		super(i);
 		setMaxStackSize(64);
-		setCreativeTab(CreativeTabs.tabMisc);
 		setIconIndex(2);
 		setItemName("Dyed Stone");
 	}

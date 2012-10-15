@@ -23,10 +23,13 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class ModToDyeFor {
 	//BLOCKS
-	public final static Block dyedPlanks = new BlockDyedPlanks(500, 0, Material.wood);
-	public final static Block dyedCobble = new BlockDyedCobblestone(501, 1, Material.rock);
-	public final static Block dyedStone  = new BlockDyedStone(502, 2, Material.rock);
-	public final static Block dyedGlass  = new BlockDyedGlass(503,4,Material.glass);
+	public final static Block dyedPlanks 	 	= new BlockDyedPlanks(500, 0, Material.wood);
+	public final static Block dyedCobble 	 	= new BlockDyedCobblestone(501, 1, Material.rock);
+	public final static Block dyedStone  	 	= new BlockDyedStone(502, 2, Material.rock);
+	public final static Block dyedGlass  	 	= new BlockDyedGlass(503,4,Material.glass);
+	public final static Block dyedWoodFence  	= new BlockDyedFence(504,0,Material.wood);
+	public final static Block dyedCobbleFence	= new BlockDyedFence(505,1, Material.rock);
+	public final static Block dyedStoneFence	= new BlockDyedFence(506,2, Material.rock);
 	
 	
     // The instance of your mod that Forge uses.
@@ -48,22 +51,34 @@ public class ModToDyeFor {
 		
 		MinecraftForge.setBlockHarvestLevel(dyedPlanks, "axe", 0);
 		GameRegistry.registerBlock(dyedPlanks, ItemDyedPlanks.class);
+		MinecraftForge.setBlockHarvestLevel(dyedWoodFence, "axe", 0);
+		GameRegistry.registerBlock(dyedWoodFence, ItemDyedFence.class);
 		MinecraftForge.setBlockHarvestLevel(dyedCobble, "pickaxe", 0);
 		GameRegistry.registerBlock(dyedCobble, ItemDyedCobblestone.class);
 		MinecraftForge.setBlockHarvestLevel(dyedStone, "pickaxe", 0);
 		GameRegistry.registerBlock(dyedStone, ItemDyedStone.class);
 		MinecraftForge.setBlockHarvestLevel(dyedGlass, "pickaxe", 0);
 		GameRegistry.registerBlock(dyedGlass, ItemDyedGlass.class);
+		MinecraftForge.setBlockHarvestLevel(dyedCobbleFence, "axe", 0);
+		GameRegistry.registerBlock(dyedCobbleFence, ItemDyedFence.class);
+		MinecraftForge.setBlockHarvestLevel(dyedStoneFence, "axe", 0);
+		GameRegistry.registerBlock(dyedStoneFence, ItemDyedFence.class);
 		
 		//Recipes
 		for(int i = 0; i < 16; i++) {
-			Object isPlanks = Block.planks;
+			Object isPlank = Block.planks;
 			Object isCobble	= Block.cobblestone;
 			Object isStone	= Block.stone;
 			Object isGlass	= Block.glass;
 			ItemStack isDyedPlanks = new ItemStack(dyedPlanks, 6, i);
 			ItemStack isDyedCobble = new ItemStack(dyedCobble, 6, i);
 			ItemStack isDyedStone  = new ItemStack(dyedStone, 6, i);
+			ItemStack isDyedWFence = new ItemStack(dyedWoodFence, 4, i);
+			ItemStack isDyedCFence = new ItemStack(dyedCobbleFence, 4, i);
+			ItemStack isDyedSFence  = new ItemStack(dyedStoneFence, 4, i);
+			ItemStack isDyedPlanksM = new ItemStack(dyedPlanks, 1, i);
+			ItemStack isDyedCobbleM = new ItemStack(dyedCobble, 1, i);
+			ItemStack isDyedStoneM  = new ItemStack(dyedStone, 1, i);
 			ItemStack isDyedGlass  = new ItemStack(dyedGlass, 6, i);
 			ItemStack isDye	= new ItemStack(Item.dyePowder, 1, i);
 			
@@ -71,20 +86,26 @@ public class ModToDyeFor {
 			GameRegistry.addRecipe(isDyedCobble, "xxx", "yyy", "xxx", 'x', isCobble, 'y', isDye);
 			GameRegistry.addRecipe(isDyedStone, "xyx", "xyx", "xyx", 'x', isStone, 'y', isDye);
 			GameRegistry.addRecipe(isDyedStone, "xxx", "yyy", "xxx", 'x', isStone, 'y', isDye);
-			GameRegistry.addRecipe(isDyedPlanks, "xyx", "xyx", "xyx", 'x', isPlanks, 'y', isDye);
-			GameRegistry.addRecipe(isDyedPlanks, "xxx", "yyy", "xxx", 'x', isPlanks, 'y', isDye);
+			GameRegistry.addRecipe(isDyedPlanks, "xyx", "xyx", "xyx", 'x', isPlank, 'y', isDye);
+			GameRegistry.addRecipe(isDyedPlanks, "xxx", "yyy", "xxx", 'x', isPlank, 'y', isDye);
 			GameRegistry.addRecipe(isDyedGlass, "xyx", "xyx", "xyx", 'x', isGlass, 'y', isDye);
 			GameRegistry.addRecipe(isDyedGlass, "xxx", "yyy", "xxx", 'x', isGlass, 'y', isDye);
+			GameRegistry.addRecipe(isDyedWFence,"xxx","xxx","   ",'x',isDyedPlanksM);
+			GameRegistry.addRecipe(isDyedCFence,"xxx","xxx","   ",'x',isDyedCobbleM);
+			GameRegistry.addRecipe(isDyedSFence,"xxx","xxx","   ",'x',isDyedStoneM);
 				
 			String dyedPlanksName = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Planks").toString());
 			String dyedCobbleName = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Cobblestone").toString());
 			String dyedStoneName  = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Stone").toString());
 			String dyedGlassName  = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Glass").toString());
+			String dyedFenceName  = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Fence").toString());
 
 			LanguageRegistry.addName(isDyedPlanks, dyedPlanksName);
 			LanguageRegistry.addName(isDyedCobble, dyedCobbleName);
 			LanguageRegistry.addName(isDyedStone, dyedStoneName);
 			LanguageRegistry.addName(isDyedGlass, dyedGlassName);
+			LanguageRegistry.addName(isDyedWFence, dyedFenceName);
+
 		}
 		
 		//Finish
