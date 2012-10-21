@@ -1,10 +1,12 @@
 package ModToDyeFor;
 
 import net.minecraft.src.Block;
+import net.minecraft.src.BlockStairs;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
+import net.minecraft.src.TileEntitySign;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -30,7 +32,8 @@ public class ModToDyeFor {
 	public final static Block dyedWoodFence  	= new BlockDyedFence(504,0,Material.wood);
 	public final static Block dyedCobbleFence	= new BlockDyedFence(505,1, Material.rock);
 	public final static Block dyedStoneFence	= new BlockDyedFence(506,2, Material.rock);
-	
+	public static final Block stairDyedPlanks   = (new BlockDyeableStairs(507, TileEntityBlockDyeableStairs.class, dyedPlanks)).setBlockName("stairsWood");
+
 	
     // The instance of your mod that Forge uses.
 	@Instance("ModToDyeFor")
@@ -63,6 +66,11 @@ public class ModToDyeFor {
 		GameRegistry.registerBlock(dyedCobbleFence, ItemDyedFence.class);
 		MinecraftForge.setBlockHarvestLevel(dyedStoneFence, "axe", 0);
 		GameRegistry.registerBlock(dyedStoneFence, ItemDyedFence.class);
+		MinecraftForge.setBlockHarvestLevel(stairDyedPlanks, "axe", 0);
+		GameRegistry.registerBlock(stairDyedPlanks, ItemDyedStairs.class);
+		GameRegistry.registerTileEntity(TileEntityBlockDyeableStairs.class, "Dyed Plank Stairs");
+
+		
 		
 		//Recipes
 		for(int i = 0; i < 16; i++) {
@@ -81,6 +89,7 @@ public class ModToDyeFor {
 			ItemStack isDyedStoneM  = new ItemStack(dyedStone, 1, i);
 			ItemStack isDyedGlass  = new ItemStack(dyedGlass, 6, i);
 			ItemStack isDye	= new ItemStack(Item.dyePowder, 1, i);
+			ItemStack isDyedPlankStairs	= new ItemStack(stairDyedPlanks, 4, i);
 			
 			GameRegistry.addRecipe(isDyedCobble, "xyx", "xyx", "xyx", 'x', isCobble, 'y', isDye);
 			GameRegistry.addRecipe(isDyedCobble, "xxx", "yyy", "xxx", 'x', isCobble, 'y', isDye);
@@ -91,20 +100,23 @@ public class ModToDyeFor {
 			GameRegistry.addRecipe(isDyedGlass, "xyx", "xyx", "xyx", 'x', isGlass, 'y', isDye);
 			GameRegistry.addRecipe(isDyedGlass, "xxx", "yyy", "xxx", 'x', isGlass, 'y', isDye);
 			GameRegistry.addRecipe(isDyedWFence,"xxx","xxx","   ",'x',isDyedPlanksM);
+			GameRegistry.addRecipe(isDyedPlankStairs,"  x"," xx","xxx",'x',isDyedPlanksM);
 			GameRegistry.addRecipe(isDyedCFence,"xxx","xxx","   ",'x',isDyedCobbleM);
 			GameRegistry.addRecipe(isDyedSFence,"xxx","xxx","   ",'x',isDyedStoneM);
 				
-			String dyedPlanksName = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Planks").toString());
-			String dyedCobbleName = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Cobblestone").toString());
-			String dyedStoneName  = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Stone").toString());
-			String dyedGlassName  = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Glass").toString());
-			String dyedFenceName  = (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Fence").toString());
-
+			String dyedPlanksName 		= (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Planks").toString());
+			String dyedCobbleName 		= (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Cobblestone").toString());
+			String dyedStoneName  		= (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Stone").toString());
+			String dyedGlassName 		= (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Glass").toString());
+			String dyedFenceName  		= (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Fence").toString());
+			String dyedPlankStairsName	= (new StringBuilder(DyeableBlock.dyeColorNames[DyeableBlock.getDyeFromBlock(i)]).append(" Plank Stairs").toString());
+			
 			LanguageRegistry.addName(isDyedPlanks, dyedPlanksName);
 			LanguageRegistry.addName(isDyedCobble, dyedCobbleName);
 			LanguageRegistry.addName(isDyedStone, dyedStoneName);
 			LanguageRegistry.addName(isDyedGlass, dyedGlassName);
 			LanguageRegistry.addName(isDyedWFence, dyedFenceName);
+			LanguageRegistry.addName(isDyedPlankStairs,dyedPlankStairsName);
 
 		}
 		
